@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiggy - Food Delivery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                <rect x="2" y="8" width="26" height="14" rx="3" fill="#ff0000"/>
+                <circle cx="15" cy="16" r="4" fill="#ffffff"/>
+            </svg>
+            <span>Swiggy</span>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Restaurants</a></li>
+                <li><a href="#">Delivery</a></li>
+                <li><a href="#">Deals & Offers</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </nav>
+        <div class="search-box">
+            <input type="text" placeholder="Search restaurants..." id="search">
+            <button id="filter-btn">Filter</button>
+        </div>
+        <div class="user-menu">
+            <button id="cart-btn" title="Cart (0)">🛒 Cart</button>
+            <img src="https://via.placeholder.com/40" alt="User avatar" id="cart-icon">
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Deliver Your Favorite Meals</h1>
+            <p>Fast, reliable food delivery across India.</p>
+            <div class="promo-banner">
+                <h3>50% OFF on All Delivers Today!</h3>
+                <a href="#" class="btn">Shop Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="restaurants">
+        <h2>Popular Restaurants</h2>
+        <div class="restaurant-grid">
+            <div class="restaurant-card">
+                <img src="https://placehold.co/400x300?text=Burger+Place" alt="Burger Place">
+                <div class="restaurant-info">
+                    <h3>Burger King</h3>
+                    <p>Classic burgers, fries & drinks</p>
+                    <span class="rating">4.8★</span>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <img src="https://placehold.co/400x300?text=Sushi+Bar" alt="Sushi Bar">
+                <div class="restaurant-info">
+                    <h3>Sushi Bar</h3>
+                    <p>Fresh sushi & Japanese cuisine</p>
+                    <span class="rating">4.7★</span>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <img src="https://placehold.co/400x300?text=Pizza+Palace" alt="Pizza Palace">
+                <div class="restaurant-info">
+                    <h3>Pizza Palace</h3>
+                    <p>Authentic Italian pizza</p>
+                    <span class="rating">4.9★</span>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <img src="https://placehold.co/400x300?text=Taco+Town" alt="Taco Town">
+                <div class="restaurant-info">
+                    <h3>Taco Town</h3>
+                    <p>Spicy tacos & Mexican street food</p>
+                    <span class="rating">4.6★</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Swiggy</h3>
+                <p>Food delivery made easy. Enjoy delicious meals delivered to your doorstep.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Restaurants</a></li>
+                    <li><a href="#">Delivery</a></li>
+                    <li><a href="#">Deals</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li>📞 1869</li>
+                    <li>✉️ support@swiggy.com</li>
+                    <li>🌐 www.swiggy.com</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
