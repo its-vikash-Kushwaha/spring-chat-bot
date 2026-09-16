@@ -1,64 +1,53 @@
 package com.example.demo;
 
-
 import com.example.demo.tools.WebsiteTool;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.messages.AssistantMessage;
-import org.springframework.ai.chat.messages.Message;
-import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
+import reactor.core.publisher.Flux;
 
 @Service
 public class WebsiteService {
 
     private final ChatClient chatClient;
-    private WebsiteTool websiteTools;
-
-    private final List<Message> history = new ArrayList<>();
-
-    public WebsiteService(ChatClient.Builder builder,
-                                 WebsiteTool websiteTools) {
-        this.chatClient = builder.build();
-        this.websiteTools = websiteTools;
-    }
+    private final WebsiteTool websiteTools;
 
     private static final String SYSTEM_PROMPT = """
             You are an expert frontend website developer.
 
             Your job is to create complete static websites using the available tools.
 
-            Follow these rules:
+            IMPORTANT TOOL RULES:
+
             1. Create a separate directory for every website.
             2. Create index.html.
             3. Create style.css.
             4. Create script.js when JavaScript is useful.
-            5. Build modern, beautiful and responsive websites.
-            6. Use only HTML, CSS and vanilla JavaScript.
-            7. Do not just return website code in your response. Actually create the files using tools.
-            8. After creating the website, list the project files.
-            9. Read important files again if needed and fix obvious problems.
-            10. Finish only when the complete website has been created.
+            5. Use ONLY HTML, CSS and vanilla JavaScript.
+            6. Create files using the provided tools.
+            7. Use ONE writeFile call for ONE file.
+            8. Never put multiple files inside one writeFile call.
+            9. Do not return the complete source code in the chat response.
+            10. After creating the files, use listFiles to verify them.
+            11. If a file needs fixing, use writeFile again for that file.
+            12. Keep the website code reasonably sized.
+            13. Finish only after all required files have been created successfully.
             """;
 
-    public String generate(String message) {
+    public WebsiteService(
+            ChatClient.Builder builder,
+            WebsiteTool websiteTools) {
 
-        // USER role
-        history.add(new UserMessage(message));
+        this.chatClient = builder.build();
+        this.websiteTools = websiteTools;
+    }
 
-        // SYSTEM + Conversation History
-        String response = chatClient.prompt()
+    public Flux<String> generate(String message) {
+
+        return chatClient.prompt()
                 .system(SYSTEM_PROMPT)
-                .messages(history)
+                .user(message)
                 .tools(websiteTools)
-                .call()
+                .stream()
                 .content();
-
-        // ASSISTANT role
-        history.add(new AssistantMessage(response));
-
-        return response;
     }
 }

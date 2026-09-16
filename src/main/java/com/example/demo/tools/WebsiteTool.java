@@ -39,25 +39,43 @@ public class WebsiteTool {
     }
 
     @Tool(description = """
-            Creates or overwrites a text file inside the website workspace.
-            Use this to create HTML, CSS and JavaScript files.
-            """)
+        Creates or overwrites ONE text file inside the website workspace.
+        Use this tool to create HTML, CSS, or JavaScript files.
+        Write only one file per tool call.
+        """)
     public String writeFile(
-            @ToolParam(description = "Relative file path, for example " +
-                    "brewlab/index.html") String path,
-            @ToolParam(description = "Complete content that should be " +
-                    "written into the file") String content) {
+            @ToolParam(description = """
+                Relative file path.
+                Example: brewlab/index.html
+                """)
+            String path,
+
+            @ToolParam(description = """
+                Complete content of the single file.
+                """)
+            String content) {
 
         try {
             Path file = safePath(path);
-            Files.createDirectories(file.getParent());
-            Files.writeString(file, content, StandardCharsets.UTF_8);
+
+            Path parent = file.getParent();
+
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
+
+            Files.writeString(
+                    file,
+                    content,
+                    StandardCharsets.UTF_8
+            );
+
             return "File written successfully: " + path;
-        } catch (IOException e) {
+
+        } catch (Exception e) {
             return "Failed to write file: " + e.getMessage();
         }
     }
-
     @Tool(
             description = "Reads the contents of an existing file from" +
                     " the website workspace.")

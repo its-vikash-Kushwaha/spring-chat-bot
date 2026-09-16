@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -15,7 +16,7 @@ public class SummuriesController {
 
 
     @PostMapping("/chat")
-    public String chat(@RequestBody String message){
+    public Flux<String> chat(@RequestBody String message){
         return summurizeServer.chat(message);
     }
 }
